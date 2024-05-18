@@ -1,0 +1,61 @@
+﻿@model ClassFrontEnd.Models.AlunoViewModel
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Cadastrar aluno</h1>
+
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Nome" class="control-label"></label>
+                <input asp-for="Nome" class="form-control" />
+                <span asp-validation-for="Nome" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Usuario" class="control-label"></label>
+                <input asp-for="Usuario" class="form-control" />
+                <span asp-validation-for="Usuario" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Senha" class="control-label"></label>
+                <div class="input-group">
+                    <input asp-for="Senha" class="form-control" type="password" id="senhaInput" />
+                    <div class="input-group-append">
+                        <button class="btn btn-outline-secondary" type="button" id="toggleSenha">
+                            <i class="fa fa-eye" aria-hidden="true"></i> 
+                        </button>
+                    </div>
+                </div>
+                <span asp-validation-for="Senha" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Cadastrar aluno" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Voltar a listagem de alunos</a>
+</div>
+
+@section Scripts {
+     @{
+    await Html.RenderPartialAsync("_ValidationScriptsPartial");
+}
+<script>
+    document.getElementById('toggleSenha').addEventListener('click', function() {
+        var senhaInput = document.getElementById('senhaInput');
+        if (senhaInput.type === 'password') {
+            senhaInput.type = 'text';
+        } else {
+            senhaInput.type = 'password';
+        }
+    });
+</script>
+}

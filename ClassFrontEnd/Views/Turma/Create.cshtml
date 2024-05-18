@@ -1,0 +1,42 @@
+﻿@model ClassFrontEnd.Models.TurmaViewModel
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Cadastrar turma</h1>
+
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Ano" class="control-label"></label>
+                <input asp-for="Ano" class="form-control" />
+                <span asp-validation-for="Ano" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label class="control-label">Nome</label>
+                <input asp-for="TurmaNome" class="form-control" />
+                <span asp-validation-for="TurmaNome" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label class="control-label">Matéria</label>
+                <input asp-for="Materia" class="form-control" />
+                <span asp-validation-for="Materia" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Cadastrar turma" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Voltar a listagem de turmas</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

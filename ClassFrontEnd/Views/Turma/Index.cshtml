@@ -1,0 +1,75 @@
+﻿@model IEnumerable<ClassFrontEnd.Models.TurmaViewModel>
+
+@{
+    ViewData["Title"] = "Listagem de turmas";
+}
+
+<h1>Listagem de turmas</h1>
+@Html.AntiForgeryToken()
+<p>
+    <a asp-action="Create">Criar nova turma</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayName("Id da turma")
+            </th>
+            <th>
+                @Html.DisplayName("Ano")
+            </th>
+            <th>
+                @Html.DisplayName("Nome")
+            </th>
+            <th>
+                @Html.DisplayName("Matéria")
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TurmaId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Ano)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.TurmaNome)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Materia)
+                </td>
+                <td>
+                    @Html.ActionLink("Alunos", "Details", new { turmaId = item.TurmaId },new { @class = "btn btn-primary btn-sm"})
+                    @Html.ActionLink("Editar", "Edit", new { turmaId = item.TurmaId },new { @class = "btn btn-info btn-sm"})
+                    <button type="button" class="btn btn-danger btn-sm" onclick="deleteTurma(@item.TurmaId)">Excluir</button>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    function deleteTurma(id) {
+        if (confirm('Tem certeza que deseja excluir esta turma?')) {
+            $.ajax({
+                url: '@Url.Action("Delete", "Turma")/' + id,
+                type: 'DELETE',
+                headers: {
+                    'RequestVerificationToken': $('input[name="__RequestVerificationToken"]').val()
+                },
+                success: function (result) {
+                    window.location.href = '@Url.Action("Index")';
+                },
+                error: function () {
+                    alert('Ocorreu um erro ao tentar excluir a turma.');
+                    console.log('@Url.Action("Delete", "Turma")/' + id)
+                }
+            });
+        }
+    }
+</script>

@@ -1,0 +1,71 @@
+﻿@model IEnumerable<ClassFrontEnd.Models.AlunoViewModel>
+
+@{
+    ViewData["Title"] = "Listagem de Alunos";
+}
+
+<h1>Listagem de Alunos</h1>
+@Html.AntiForgeryToken()
+<p>
+    <a asp-action="Create">Criar novo aluno</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayName("Id do aluno")
+            </th>
+            <th>
+                @Html.DisplayName("Nome")
+            </th>
+            <th>
+                @Html.DisplayName("Usuário")
+            </th>
+            
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.AlunoId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Nome)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Usuario)
+                </td>
+                <td>
+                    @Html.ActionLink("Turmas", "Details", new { alunoId = item.AlunoId },new { @class = "btn btn-primary btn-sm"})
+                    @Html.ActionLink("Editar", "Edit", new { alunoId = item.AlunoId },new { @class = "btn btn-info btn-sm"})
+                    <button type="button" class="btn btn-danger btn-sm" onclick="deleteAluno(@item.AlunoId)">Excluir</button>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    function deleteAluno(id) {
+        if (confirm('Tem certeza que deseja excluir este aluno?')) {
+            $.ajax({
+                url: '@Url.Action("Delete", "Aluno")/' + id,
+                type: 'DELETE',
+                headers: {
+                    'RequestVerificationToken': $('input[name="__RequestVerificationToken"]').val()
+                },
+                success: function (result) {
+                    window.location.href = '@Url.Action("Index")';
+                },
+                error: function () {
+                    alert('Ocorreu um erro ao tentar excluir o aluno.');
+                    console.log('@Url.Action("Delete", "Aluno")/' + id)
+                }
+            });
+        }
+    }
+</script>

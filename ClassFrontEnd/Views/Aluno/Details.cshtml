@@ -1,0 +1,39 @@
+﻿@model ClassFrontEnd.Controllers.AlunoDetailsViewModel
+
+@{
+    ViewData["Title"] = "Detalhes do Aluno";
+}
+
+<h1>Detalhes do Aluno</h1>
+
+<div class="card">
+    <div class="card-body">
+        <dl class="row">
+            <dd class="col-sm-10">
+                <h3>@Model.Nome</h3>
+            </dd>
+        </dl>
+
+        <h2>Turmas Matriculadas</h2>
+
+        @if (Model.Turmas.Any())
+        {
+            <ul class="list-group">
+                @foreach (var turma in Model.Turmas)
+                {
+                    <li class="list-group-item">@turma.TurmaNome</li>
+                }
+            </ul>
+        }
+        else
+        {
+            <p>O aluno não está matriculado em nenhuma turma.</p>
+        }
+    </div>
+</div>
+
+<div class="d-flex justify-content-between mt-3">
+    <a asp-action="Index" class="btn btn-secondary">Voltar para Lista</a>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERHp6SiQYzBv4tluqFW7BLNUwvNGBv8Nu7GxtFXCsHhQ8vWqAPaRN6lYeQ5GCz" crossorigin="anonymous"></script>
