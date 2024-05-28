@@ -1,6 +1,6 @@
 ﻿# ClassWebApi
 
-Projeto para o processo seletivo da FIAP.
+Projeto desafio da FIAP.
 
 CRUDS:
  - Aluno
